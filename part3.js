@@ -52,7 +52,7 @@ function send(message) {
   if (connectedUser) {
     message.name = connectedUser;
   }
-
+//Uncaught DOMException: Failed to execute 'send' on 'WebSocket': Still in CONNECTING state.
   connection.send(JSON.stringify(message));
 };
 
