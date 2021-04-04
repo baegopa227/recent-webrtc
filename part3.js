@@ -117,15 +117,20 @@ var yourVideo = document.querySelector('#yours'),
     
 function startConnection() {
   if (hasUserMedia()) {
-    navigator.getUserMedia({ video: true
-  , audio: true }, function (stream) {
+      const constraints = {video: {width: {exact: 320}, height: {exact: 240}}
+};
+    navigator.getUserMedia(constraints, function (stream) {
       //console.log("my stream : " + stream);
       //window.stream1 = stream;
       //window.stream = stream;
       yourVideo.srcObject = stream;
       //yourVideo.srcObject = window.URL.createObjectURL(stream);
       recordButton.disabled = false;
+        
+        
       if (hasRTCPeerConnection()) {
+        const videoTracks = stream.getVideoTracks();
+        console.log('Using video device : ${videoTracks[0].label}');
         setupPeerConnection(stream);
       } else {
         alert("Sorry, your browser does not support WebRTC.");
